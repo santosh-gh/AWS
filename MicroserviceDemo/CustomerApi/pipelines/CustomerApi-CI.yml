@@ -11,18 +11,33 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:  
-  AzureSubscription: 'AzureServiceConnection' # Name of the Service Connection
+  AzureSubscription: 'myserviceconnection' # Name of the Service Connection
   ApiName: 'customerapi'
   ArtifactName: 'CustomerApi'
   ArtifactSourceFolder: $(ArtifactName)/$(ArtifactName)
   BuildId: $(Build.BuildId)
   BuildNumber: $(GitVersion.FullSemVer)
-  ClusterResourceGroup: MicroserviceDemo    
+  ClusterResourceGroup: microdemo    
   ChartPath: '$(ArtifactName)/$(ArtifactName)/charts/$(ApiName)'
   HelmVersion: 3.5.0  
-  Repository: 'wolfgangofner/$(ApiName)' # '<YourACRName>.azurecr.io/<YourRepositoryName>' # replace with your repository  
-  KubernetesCluster: 'microservice-aks'
-  ReleaseValuesFile: '$(ArtifactSourceFolder)/values.release.yaml'    
+  Repository: 'MicroserviceDemo/MicroserviceDemo/$(ApiName)' # '<YourACRName>.azurecr.io/<YourRepositoryName>' # replace with your repository  
+  KubernetesCluster: 'microdemoaks'
+  ReleaseValuesFile: '$(ArtifactSourceFolder)/values.release.yaml'  
+
+
+  # azureSubscriptionEndpoint: 'myserviceconnection'
+  # azureContainerRegistry: 'microdemoacr.azurecr.io'
+  # azureResourceGroup: 'microdemoacr.azurecr.io'
+  # kubernetesCluster: 'microdemoaks'
+  # k8sNamespace: 'phippyandfriends'
+  # #AzureSubscription: 'AzureServiceConnection' # Name of the Service Connection
+  # #ApiName: 'customerapi'
+  # #ClusterResourceGroup: MicroserviceDemo  
+  # ChartPackage: '$(Build.ArtifactStagingDirectory)/$(projectName)-$(Build.BuildNumber).tgz'  
+  # ChartPath: 'Microservice/parrot/charts/$(projectName)'
+  # HelmVersion: 3.5.0
+  # ImageName: 'parrot:$(Build.BuildNumber)'
+
 
 stages:
 - stage: Build  
