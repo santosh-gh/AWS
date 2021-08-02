@@ -23,7 +23,7 @@ variables:
   Repository: 'MicroserviceDemo/MicroserviceDemo/$(ApiName)' # '<YourACRName>.azurecr.io/<YourRepositoryName>' # replace with your repository  
   KubernetesCluster: 'microdemoaks'
   ReleaseValuesFile: '$(ArtifactSourceFolder)/values.release.yaml'  
-
+  azureContainerRegistry: 'microdemoacr.azurecr.io'
 
   # azureSubscriptionEndpoint: 'myserviceconnection'
   # azureContainerRegistry: 'microdemoacr.azurecr.io'
@@ -50,7 +50,7 @@ stages:
       parameters:
           buildId: $(BuildId)
           patMicroserviceDemoNugetsFeed: $(PatMicroserviceDemoNugetsFeed)
-          containerRegistry: 'Docker Hub' # MicroserviceDemoRegistry # replace with your Service Connection name
+          containerRegistry: $(azureContainerRegistry) # MicroserviceDemoRegistry # replace with your Service Connection name
           repository: $(Repository) 
           tag: $(BuildNumber)
           artifactName: $(ArtifactName)
