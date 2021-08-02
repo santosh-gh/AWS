@@ -23,7 +23,7 @@ variables:
   Repository: 'MicroserviceDemo/MicroserviceDemo/$(ApiName)' # '<YourACRName>.azurecr.io/<YourRepositoryName>' # replace with your repository  
   KubernetesCluster: 'microdemoaks'
   ReleaseValuesFile: '$(ArtifactSourceFolder)/values.release.yaml'  
-  azureContainerRegistry: 'microdemoacr.azurecr.io'
+  containerRegistry: 'microdemoacrconnection'
 
   # azureSubscriptionEndpoint: 'myserviceconnection'
   # azureContainerRegistry: 'microdemoacr.azurecr.io'
@@ -45,19 +45,19 @@ stages:
   - job: Build
     displayName: Build and push Docker image and create Helm package
     steps:
-    - template: templates/BuildVersioning.yml
+    #- template: templates/BuildVersioning.yml
     - template: templates/DockerBuildAndPush.yml
       parameters:
           buildId: $(BuildId)
           patMicroserviceDemoNugetsFeed: $(PatMicroserviceDemoNugetsFeed)
-          containerRegistry: $(azureContainerRegistry) # MicroserviceDemoRegistry # replace with your Service Connection name
+          containerRegistry: $(containerRegistry) # MicroserviceDemoRegistry # replace with your Service Connection name
           repository: $(Repository) 
-          tag: $(BuildNumber)
+          tag: $(BuildId)
           artifactName: $(ArtifactName)
     - template: templates/CreateHelmPackage.yml
       parameters:          
           azureSubscription: $(AzureSubscription)
-          buildNumber: $(BuildNumber)
+          buildNumber: $(BuildId)
           clusterResourceGroup: $(ClusterResourceGroup)          
           chartPath: $(ChartPath)          
           kubernetesCluster: $(KubernetesCluster)        

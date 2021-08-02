@@ -25,7 +25,7 @@ steps:
       containerRegistry: ${{ parameters.containerRegistry }}
       repository: ${{ parameters.repository }}
       command: 'build'
-      Dockerfile: '**/${{ parameters.artifactName }}/${{ parameters.artifactName }}/Dockerfile'
+      Dockerfile: '**/${{ parameters.artifactName }}/Dockerfile'
       buildContext: ${{ parameters.artifactName }}
       tags: |      
         ${{ parameters.tag }}
